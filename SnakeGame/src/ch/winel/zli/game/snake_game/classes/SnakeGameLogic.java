@@ -23,6 +23,7 @@ public class SnakeGameLogic {
 
     private void processTick(){
         if(snakeGame.getPaused()){
+            return;
         }
         Position headPos = level.getSnake().getHeadPosition();
         Direction snakeDirection = level.getSnake().getDirection();
@@ -32,16 +33,20 @@ public class SnakeGameLogic {
         if(level.getFood().intersectsWith(headPos)){
             level.getSnake().eat(level.getFood());
             level.placeFood();
-
+            snakeGame.incrementLevelPoints();
+            snakeGame.incrementGamePoints();
         }
         if(level.getObstacles().intersectsWith(headPos) || level.getSnake().selfColission()){
             snakeGame.setPaused(true);
+            snakeGame.resetLevelPoints();
+            snakeGame.resetGamePoints();
+        }
+        if(snakeGame.getGamePoints() == 10){
+            snakeGame.incrementGamePoints();
         }
         snakeGame.gameNeedsRedraw();
     
-    }
-
-    
+    } 
     public void changeDirection(Direction direction){
         snakeGame.setPaused(false);
         level.getSnake().setDirection(direction);
@@ -50,9 +55,6 @@ public class SnakeGameLogic {
     public void drawGame(JPanel panel, Graphics2D g) {
         int dx = panel.getWidth()/level.getDesert().getWidth();
         int dy = panel.getHeight()/level.getDesert().getHeight();
-        System.out.println(dx);
-        System.out.println(panel.getWidth());
-        System.out.println( level.getDesert().getWidth());
         level.getSnake().draw(dx, dy, g);
         level.getFood().draw(dx, dy, g);
         level.getObstacles().draw(dx, dy, g);

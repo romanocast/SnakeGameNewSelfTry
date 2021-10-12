@@ -11,7 +11,7 @@ public class ExampleGameApp {
             public void run() {
                 // We need a game and a gui
                 SnakeGame game = new SnakeGame();
-                SwingGameGui gui = new SwingGameGui("Example App");
+                SwingGameGui gui = new SwingGameGui("Snake 2077");
 
                 // Add the game to the gui ...
                 gui.addGameCommandListener(game);
