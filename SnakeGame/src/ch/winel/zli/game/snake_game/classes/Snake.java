@@ -87,14 +87,14 @@ public class Snake {
         
     }
     
-    public void draw(JPanel panel, Graphics2D g) {
+    public void draw(int dx, int dy, Graphics2D g) {
         g.setColor(Color.GREEN);
         for (Position position : body) {
             if(!position.equals(body.get(0))){
-                g.fillRect(position.getX() * 20 , position.getY() * 20 , 10, 10);
+                g.fillRect(dx * position.getX() , dy * position.getY() , dx, dy);
             }
         }
         g.setColor(Color.BLUE);
-        g.fillRect(body.get(0).getX() * 20 , body.get(0).getY() * 20 , 10, 10);
+        g.fillRect(dx * body.get(0).getX() , dy * body.get(0).getY() , dx, dy);
     }
 }

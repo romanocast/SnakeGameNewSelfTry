@@ -11,13 +11,13 @@ import ch.winel.zli.game.snake_game.classes.SnakeGameLogic;
 
 public class SnakeGame extends Game {
     
-    private boolean gamePaused = true;
     private SnakeGameLogic gameLogic;
 
    
     @Override
     public void newGame() {
         gameLogic = new SnakeGameLogic(this);   
+        setPaused(true);
         gameNeedsRedraw();     
     }
 
@@ -29,7 +29,8 @@ public class SnakeGame extends Game {
 
     @Override
     public void pauseGame() {
-        System.out.println("pauseGame");
+        togglePaused();
+        gameNeedsRedraw();
     }
 
     @Override
@@ -50,12 +51,6 @@ public class SnakeGame extends Game {
     @Override
     public void goRight() {
         gameLogic.changeDirection(Direction.RIGHT);
-    }
-
-    @Override
-    public void drawStatus(JPanel panel, Graphics2D g) {
-        g.drawString(
-            gamePaused ? "Game Paused" : "Game Running", 20, 20);
     }
 
     @Override

@@ -16,11 +16,14 @@ public class SnakeGameLogic {
 
     public SnakeGameLogic(SnakeGame snakeGame) {
         this.snakeGame = snakeGame;
-        level = new Level(new Snake(), new Desert(12, 12), new Food(), new Obstacles());
+        Desert desert = new Desert(12, 12);
+        level = new Level(new Snake(), desert,new Obstacles(desert.getWidth(), desert.getHeight()));
         initAfterLevelChanged();
     }
 
     private void processTick(){
+        if(snakeGame.getPaused()){
+        }
         Position headPos = level.getSnake().getHeadPosition();
         Direction snakeDirection = level.getSnake().getDirection();
         Position next = level.getDesert().getNextPosition(snakeDirection, headPos);
@@ -28,42 +31,31 @@ public class SnakeGameLogic {
         headPos = next;
         if(level.getFood().intersectsWith(headPos)){
             level.getSnake().eat(level.getFood());
-            respawnFood();
+            level.placeFood();
 
         }
         if(level.getObstacles().intersectsWith(headPos) || level.getSnake().selfColission()){
-            snakeGame.quitGame();
+            snakeGame.setPaused(true);
         }
         snakeGame.gameNeedsRedraw();
+    
     }
 
+    
     public void changeDirection(Direction direction){
+        snakeGame.setPaused(false);
         level.getSnake().setDirection(direction);
     }
 
-    private void respawnFood(){
-        Position newFoodPos = null;
-        boolean freePosition = false;
-        random = new Random();
-        while(!freePosition){
-            newFoodPos = new Position(random.nextInt(11), random.nextInt(11));
-            while(newFoodPos.getX() == 0 ){
-                newFoodPos = new Position(random.nextInt(11), random.nextInt(11));
-            }
-            while(newFoodPos.getY() == 0 ){
-                newFoodPos = new Position(random.nextInt(11), random.nextInt(11));
-            }
-            if(!level.getSnake().intersectsWith(newFoodPos)){
-                freePosition = true;
-            }
-        }
-        level.getFood().setPosition(newFoodPos);
-    }
-
     public void drawGame(JPanel panel, Graphics2D g) {
-        level.getSnake().draw(panel, g);
-        level.getFood().draw(panel, g);
-        level.getObstacles().draw(panel, g);
+        int dx = panel.getWidth()/level.getDesert().getWidth();
+        int dy = panel.getHeight()/level.getDesert().getHeight();
+        System.out.println(dx);
+        System.out.println(panel.getWidth());
+        System.out.println( level.getDesert().getWidth());
+        level.getSnake().draw(dx, dy, g);
+        level.getFood().draw(dx, dy, g);
+        level.getObstacles().draw(dx, dy, g);
     }
 
     public void pause(){

@@ -9,7 +9,13 @@ public class Desert {
         this.width = width;
         this.height = height;
     }
-
+    
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
+    }
     public Position getNextPosition(Direction snakeDirection, Position headPos){
         switch (snakeDirection){
             case UP:

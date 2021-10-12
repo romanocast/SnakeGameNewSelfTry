@@ -8,24 +8,24 @@ public class Obstacles {
     
     private ArrayList<Position> obstaclesPositions = new ArrayList<>();
 
-    public Obstacles() {
-        for(int i = 0; i < 12; i++) {
+    public Obstacles(int maxX, int maxY) {
+        for(int i = 0; i < maxX; i++) {
             this.obstaclesPositions.add(new Position(0, i));
-            this.obstaclesPositions.add(new Position(12, i));
+            this.obstaclesPositions.add(new Position(maxX-1, i));
             this.obstaclesPositions.add(new Position(i, 0));
-            this.obstaclesPositions.add(new Position(i, 12));
+            this.obstaclesPositions.add(new Position(i, maxY-1));
         }
-        this.obstaclesPositions.add(new Position(12, 12));
+        this.obstaclesPositions.add(new Position(maxX-1, maxY-1));
     }
 
     public boolean intersectsWith(Position positionToCheck) {
         return obstaclesPositions.contains(positionToCheck);
     }
 
-    public void draw(JPanel panel, Graphics2D g) {
+    public void draw(int dx, int dy, Graphics2D g) {
         g.setColor(Color.ORANGE);
         for(Position obstacle: obstaclesPositions) {
-            g.fillRect(obstacle.getX() * 20 + 5, obstacle.getY() *20 + 5, 10, 10);;
+            g.fillRect(dx * obstacle.xPosition , dy * obstacle.yPosition , dx, dy);;
         }
     }
     
