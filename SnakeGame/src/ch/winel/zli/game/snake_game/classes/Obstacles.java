@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
-
 public class Obstacles {
     
     private ArrayList<Position> obstaclesPositions = new ArrayList<>();
@@ -15,7 +14,6 @@ public class Obstacles {
             this.obstaclesPositions.add(new Position(12, i));
             this.obstaclesPositions.add(new Position(i, 0));
             this.obstaclesPositions.add(new Position(i, 12));
-
         }
         this.obstaclesPositions.add(new Position(12, 12));
     }

@@ -12,7 +12,6 @@ public class Snake {
     private boolean eats;
     private Direction lastDirection;
     
-
     public Snake() {
         eats = false;
         direction = Direction.RIGHT;
@@ -84,7 +83,6 @@ public class Snake {
                     this.direction = direction;
                 }
                 break;
-            
         }
         
     }
@@ -96,17 +94,7 @@ public class Snake {
                 g.fillRect(position.getX() * 20 , position.getY() * 20 , 10, 10);
             }
         }
-
         g.setColor(Color.BLUE);
-        g.fillRect(body.get(0).getX() * 20 , body.get(0).getY() * 20 , 20, 20);
-
-       // for(int i = 0; i < body.size() - 1; i++){
-         //   g.fillRect(body.get(i).getX() * 10 , body.get(i).getY() * 10 , 10, 10);
-        //}
-
-        //g.setColor(Color.BLUE);
-        //{
-          //  g.fillRect(body.get(2).getX() * 10 , body.get(2).getY() * 10 , 10, 10);
-        //}
+        g.fillRect(body.get(0).getX() * 20 , body.get(0).getY() * 20 , 10, 10);
     }
 }

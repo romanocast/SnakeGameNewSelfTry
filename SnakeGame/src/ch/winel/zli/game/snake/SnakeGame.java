@@ -17,8 +17,6 @@ public class SnakeGame extends Game {
    
     @Override
     public void newGame() {
-        // gameLogic.cancelTimer();
-        
         gameLogic = new SnakeGameLogic(this);   
         gameNeedsRedraw();     
     }
@@ -32,7 +30,6 @@ public class SnakeGame extends Game {
     @Override
     public void pauseGame() {
         System.out.println("pauseGame");
-        
     }
 
     @Override
@@ -67,7 +64,5 @@ public class SnakeGame extends Game {
         g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
         gameLogic.drawGame(panel, g);
         g.setColor(Color.BLACK);
-        
     }
-    
 }

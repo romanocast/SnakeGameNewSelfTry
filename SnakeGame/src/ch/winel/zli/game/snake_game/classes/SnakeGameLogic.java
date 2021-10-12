@@ -17,7 +17,6 @@ public class SnakeGameLogic {
     public SnakeGameLogic(SnakeGame snakeGame) {
         this.snakeGame = snakeGame;
         level = new Level(new Snake(), new Desert(12, 12), new Food(), new Obstacles());
-        //goOn();
         initAfterLevelChanged();
     }
 
