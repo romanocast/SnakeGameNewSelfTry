@@ -12,7 +12,11 @@ public class SnakeGameLogic {
     private SnakeGame snakeGame;
     private Level level;
     private Timer timer;
-    private Random random;
+    private int speed = 400;
+    //Change the Steps to set the points to reach for the next level
+    private int nextLevelSteps = 10;
+
+    
 
     public SnakeGameLogic(SnakeGame snakeGame) {
         this.snakeGame = snakeGame;
@@ -35,17 +39,21 @@ public class SnakeGameLogic {
             level.placeFood();
             snakeGame.incrementLevelPoints();
             snakeGame.incrementGamePoints();
+            if(snakeGame.getLevelPoints() == nextLevelSteps){
+                snakeGame.increaseLevel();
+                timer.cancel();
+                this.speed = speed -(speed/5);
+                initAfterLevelChanged();
+            }
         }
         if(level.getObstacles().intersectsWith(headPos) || level.getSnake().selfColission()){
             snakeGame.setPaused(true);
             snakeGame.resetLevelPoints();
             snakeGame.resetGamePoints();
-        }
-        if(snakeGame.getGamePoints() == 10){
-            snakeGame.incrementGamePoints();
+            snakeGame.resetLevel();
+            snakeGame.setGameOver();
         }
         snakeGame.gameNeedsRedraw();
-    
     } 
     public void changeDirection(Direction direction){
         snakeGame.setPaused(false);
@@ -72,6 +80,6 @@ public class SnakeGameLogic {
             }
         };
         timer = new Timer();
-        timer.scheduleAtFixedRate(timerTask, 2, 200);
+        timer.scheduleAtFixedRate(timerTask, 2, speed);
     }   
 }

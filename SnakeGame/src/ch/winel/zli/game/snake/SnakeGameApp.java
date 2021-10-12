@@ -4,7 +4,7 @@ import javax.swing.SwingUtilities;
 
 import ch.winel.zli.game.gui.SwingGameGui;
 
-public class ExampleGameApp {
+public class SnakeGameApp {
     public static void main(String[] args) {
         // Do not ask, always do it this way
         SwingUtilities.invokeLater(new Runnable() {

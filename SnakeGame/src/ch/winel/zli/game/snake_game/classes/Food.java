@@ -11,7 +11,7 @@ import java.util.Random;
 public class Food {
     private static final Random rnd = new Random();
     private static ArrayList<Color> foodColors = new ArrayList<>( Arrays.asList(
-        Color.RED, Color.ORANGE, Color.GREEN, Color.MAGENTA, Color.CYAN, Color.BLUE
+        Color.RED, Color.ORANGE, Color.GREEN, Color.MAGENTA, Color.CYAN, Color.BLUE, Color.BLACK, Color.DARK_GRAY, Color.GRAY, Color.PINK, Color.WHITE
     ));
 
     private Position position;
@@ -30,6 +30,6 @@ public class Food {
 
     public void draw(int dx, int dy, Graphics2D g) {
         g.setColor(color);
-        g.fillRect(dx * position.getX() , dy * position.getY() , dx, dy);
+        g.fillRect(dx * position.getX() , dy * position.getY() , dx/2, dy/2);
     }
 }

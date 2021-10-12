@@ -1,16 +1,22 @@
 package ch.winel.zli.game.snake_game.classes;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import java.awt.Graphics2D;
-import javax.swing.JPanel;
 
 
 public class Snake {
-    
+    private static final Random rnd = new Random();
+    private static ArrayList<Color> foodColors = new ArrayList<>( Arrays.asList(
+        Color.RED, Color.ORANGE, Color.GREEN, Color.MAGENTA, Color.CYAN, Color.BLUE, Color.BLACK, Color.DARK_GRAY, Color.GRAY, Color.PINK, Color.WHITE
+    ));
     private ArrayList<Position> body;
     private Direction direction;
     private boolean eats;
     private Direction lastDirection;
+    private Color colorHead;
+    private Color colorBody;
     
     public Snake() {
         eats = false;
@@ -22,6 +28,8 @@ public class Snake {
                 add(new Position(4, 3));
             }
         };
+        colorHead = foodColors.get(rnd.nextInt(foodColors.size()));
+        colorBody = foodColors.get(rnd.nextInt(foodColors.size()));
     }
 
     public void MoveTo(Position next) {
@@ -88,13 +96,13 @@ public class Snake {
     }
     
     public void draw(int dx, int dy, Graphics2D g) {
-        g.setColor(Color.GREEN);
+        g.setColor(colorHead);
         for (Position position : body) {
             if(!position.equals(body.get(0))){
-                g.fillRect(dx * position.getX() , dy * position.getY() , dx, dy);
+                g.fillRect(dx * position.getX() , dy * position.getY() , dx/2, dy/2);
             }
         }
-        g.setColor(Color.BLUE);
-        g.fillRect(dx * body.get(0).getX() , dy * body.get(0).getY() , dx, dy);
+        g.setColor(colorBody);
+        g.fillRect(dx * body.get(0).getX() , dy * body.get(0).getY() , dx/2, dy/2);
     }
 }
