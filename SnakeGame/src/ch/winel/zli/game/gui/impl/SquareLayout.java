@@ -5,7 +5,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager2;
-import java.lang.reflect.Field;
 
 /** Custom layout manager to layout two panels */
 public class SquareLayout implements LayoutManager2 {
@@ -37,12 +36,9 @@ public class SquareLayout implements LayoutManager2 {
 		synchronized (parent.getTreeLock()) {
 			Insets insets = parent.getInsets();
 			int top = insets.top;
-			// Fuck the fucking fuckers:
-			// Container.width has package access & I can't extend java.awt
-			// So let's do it with reflection.
-			int bottom = getIntWithReflection(parent, "height") - insets.bottom;
 			int left = insets.left;
-			int right = getIntWithReflection(parent, "width") - insets.right;
+			int right = parent.getWidth();
+			int bottom = parent.getHeight();
 			int width = right - left;
 			int height = bottom - top;
 			int squareWidth = Math.min(width, height);
@@ -196,18 +192,4 @@ public class SquareLayout implements LayoutManager2 {
 	public String toString() {
 		return getClass().getName() + "[gap = " + gap + "]";
 	}
-
-	private int getIntWithReflection(Component object, String fieldName) {
-		Field privateField;
-		try {
-			privateField = Component.class.getDeclaredField(fieldName);
-			privateField.setAccessible(true);
-
-			return (int) privateField.get(object);
-		} catch (NoSuchFieldException | SecurityException
-				| IllegalArgumentException | IllegalAccessException e) {
-			return 0;
-		}
-	}
-
 }
