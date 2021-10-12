@@ -1,7 +1,4 @@
 package ch.winel.zli.game.snake_game.classes;
-
-import javax.swing.JPanel;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
