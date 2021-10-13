@@ -25,7 +25,6 @@ public class Level {
         food =  new Food(pos);
     }
 
-    
     public Food getFood() {
         return food;
     }

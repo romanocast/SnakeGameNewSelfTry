@@ -22,7 +22,6 @@ public class Food {
 
     public Boolean intersectsWith(Position otherPosition){
         return (position.equals(otherPosition));
-        //return (position.xPosition == otherPosition.xPosition  && position.yPosition == otherPosition.yPosition);
     }
 
     public void draw(int dx, int dy, Graphics2D g) {

@@ -24,8 +24,8 @@ public class Snake {
         body = new ArrayList<Position>(){
             {
                 add(new Position(4, 2));
-                add(new Position(4, 2));
                 add(new Position(4, 3));
+                add(new Position(4, 4));
             }
         };
         colorHead = foodColors.get(rnd.nextInt(foodColors.size()));
@@ -34,7 +34,6 @@ public class Snake {
 
     public void MoveTo(Position next) {
         body.add(0, next);
-        lastDirection = direction;
         if (!eats){
             body.remove(body.size() -1);
         }

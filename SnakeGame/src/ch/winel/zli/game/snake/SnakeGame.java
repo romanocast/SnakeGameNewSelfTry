@@ -18,7 +18,8 @@ public class SnakeGame extends Game {
     public void newGame() {
         gameLogic = new SnakeGameLogic(this);   
         setPaused(true);
-        gameNeedsRedraw();     
+        resetStatus();
+        gameNeedsRedraw();   
     }
 
     @Override

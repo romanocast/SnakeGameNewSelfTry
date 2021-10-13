@@ -1,5 +1,6 @@
 package ch.winel.zli.game.snake_game.test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -24,7 +25,13 @@ public class SnakeTest {
     }
 
     @Test
-    public void testingFoodEating() {
-      
+    public void testingMoveTo() {
+      snake.MoveTo(position);
+      assertEquals(position, snake.getHeadPosition());
+    }
+
+    @Test
+    public void testingSelfColission(){
+        assertFalse(snake.selfColission());
     }
 }
