@@ -3,6 +3,7 @@ package ch.winel.zli.game;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 
 
@@ -31,35 +32,20 @@ public abstract class Game implements GameCmdListener, GamePainter {
         gamePaused = paused;
     }
 
-    public void incrementLevelPoints(){
+    public void incrementPoints(){
         this.levelPoints++;
-    }
-
-    public void resetLevelPoints(){
-        this.levelPoints = 0;
+        this.gamePoints++;
     }
 
     public int getLevelPoints(){
         return levelPoints;
     }
 
-    public void incrementGamePoints(){
-        this.gamePoints++;
-    }
-    
-    public void resetGamePoints(){
-        this.gamePoints = 0;
-    }
-
-    public void resetLevel(){
-        this.levelNumber = 1;
-    }
-
     public void increaseLevel() {
         this.levelPoints = 0;
         this.levelNumber++;
     }
-    
+
     public void setRedrawListener(RedrawListener redrawListener) {
         this.redrawListener = redrawListener;
     }
@@ -71,6 +57,9 @@ public abstract class Game implements GameCmdListener, GamePainter {
     }
 
     public void setGameOver(){
+        this.levelPoints = 0;
+        this.gamePoints = 0;
+        this.levelNumber = 1;
         this.gameOver = true;
     }
 

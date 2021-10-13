@@ -13,7 +13,7 @@ public class SnakeGameLogic {
     private Timer timer;
     private int speed = 400;
     //Change the Steps to set the points to reach for the next level
-    private int nextLevelSteps = 10;
+    private int nextLevelSteps = 3;
 
     
 
@@ -25,35 +25,60 @@ public class SnakeGameLogic {
     }
 
     private void processTick(){
+
+        //If the game status is paused don't tick
         if(snakeGame.getPaused()){
             return;
         }
-        Position headPos = level.getSnake().getHeadPosition();
+
+        //Get the direction the snake moves. The actual head position and the next Position the snake will move to.
         Direction snakeDirection = level.getSnake().getDirection();
+        Position headPos = level.getSnake().getHeadPosition();
         Position next = level.getDesert().getNextPosition(snakeDirection, headPos);
+
+        //Tell the snake to move to the next direction we just got.
         level.getSnake().MoveTo(next);
+
+        //On the next tick the new head Position will be the actual head pos
         headPos = next;
+
+        //If the snake eats food. (head position same as food position)
         if(level.getFood().intersectsWith(headPos)){
+
+            //Trigger the eat() Function from the snake to true which will not remove (so adding) a body part from the snake on the next process tick.
             level.getSnake().eat(level.getFood());
+
+            //Let the level spawn a new food on the playfield which is not occupied by the snake or a obstacle
             level.placeFood();
-            snakeGame.incrementLevelPoints();
-            snakeGame.incrementGamePoints();
+
+            //Increment gamePoints and levelPoints
+            snakeGame.incrementPoints();
             if(snakeGame.getLevelPoints() == nextLevelSteps){
+
+                /*When the player reaches a certain level (change nextLevelSteps of the snakeGameLogic class to decide the steps)
+                  the increaseLevel function gets triggered, which increases the game level and restets the level points.
+                */
                 snakeGame.increaseLevel();
+
+                //Cause the gamespeed gets changed we cancel the timer to proivide issues.
                 timer.cancel();
+
+                //Set new gamespeed. The higher the number of which the speed gets divided to, the lower the speed increasement will be on the levelstep.
                 this.speed = speed -(speed/5);
+
+                //Start new tick.
                 initAfterLevelChanged();
             }
         }
+
+        //If the snake collides with an obstacle or with itself the game gets paused and the game over status resets the points and level.
         if(level.getObstacles().intersectsWith(headPos) || level.getSnake().selfColission()){
             snakeGame.setPaused(true);
-            snakeGame.resetLevelPoints();
-            snakeGame.resetGamePoints();
-            snakeGame.resetLevel();
             snakeGame.setGameOver();
         }
         snakeGame.gameNeedsRedraw();
     } 
+    
     public void changeDirection(Direction direction){
         snakeGame.setPaused(false);
         level.getSnake().setDirection(direction);
